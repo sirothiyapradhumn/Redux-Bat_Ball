@@ -1,33 +1,32 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import { connect } from "react-redux";
 
-function Ball({ballss, buyBall, sellBall}) {
-  //console.log(props);
-  //const[bat, setBat] = useState(20);  // no need 
+function Ball({balls,buyBall,sellBall}) {
+//   console.log(props);
+  const [qty, setQty] = useState(1);
   return (
     <div>
-        <h1>Balls: {ballss}</h1>
-        <button onClick={buyBall}> Buy Ball</button>
-        <button onClick={sellBall}> Sell Ball</button>
+      <h1>Balls:{balls}</h1>
+      <input type="number" value={qty} onChange={(e)=>setQty(e.target.value) } />
+      <button onClick={()=>buyBall(qty)}>Buy Ball </button>
+      <button onClick={sellBall}>Sell Ball </button>
     </div>
-  )
+  );
 }
 
-//component ko globle store se laake deta as props, isko ek state milta hai, connect method se.
-const mapStateToProps = (state) =>{
+//component ko global store se laake deta as props , isko ek state milta h connect method se ,
+const mapStateToProps = (state) => {
   return {
-    ballss: state.ball.balls
+    balls: state.ball.balls,
   };
 };
 
-//ye fn ek action dispatch krta hai, yaani reducer ke pass jaayega aur switch case chalaayega
-const mapDispatchToProps = (dispatch)=>{
+
+// ye function ek action dispatch krta h , yaani reducer ke paas jaayega aur switch case chalaayega
+const mapDispatchToProps = (dispatch) => {
   return {
-    //action object hai yai  dispatch(action)
-    buyBall: ()=>dispatch({type: "BUY_BALL"}),
-
-    sellBall: ()=>dispatch({type: "SELL_BALL"})
-  }
-}
-
+    buyBall: (qty) => dispatch({ type: "BUY_BALL", payload:qty }),
+    sellBall: () => dispatch({ type: "SELL_BALL" }),
+  };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Ball);
