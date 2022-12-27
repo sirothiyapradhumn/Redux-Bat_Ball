@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { buyBall } from "../redux/ballAction";
 
 function Ball({balls,buyBall,sellBall}) {
 //   console.log(props);
@@ -25,7 +26,7 @@ const mapStateToProps = (state) => {
 // ye function ek action dispatch krta h , yaani reducer ke paas jaayega aur switch case chalaayega
 const mapDispatchToProps = (dispatch) => {
   return {
-    buyBall: (qty) => dispatch({ type: "BUY_BALL", payload:qty }),
+    buyBall: (qty) => dispatch(buyBall(qty)),
     sellBall: () => dispatch({ type: "SELL_BALL" }),
   };
 };
